@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/provider/users.dart';
+import 'package:project/routes/app_routes.dart';
+import 'package:project/views/user_form.dart';
 import 'package:project/views/user_list.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +12,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Users(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Users(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
@@ -19,7 +25,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: UserList(),
+        routes: {
+          AppRouts.HOME: (_) => UserList(),
+          AppRouts.USER_FORM: (_) => UserForm(),
+        },
       ),
     );
   }
